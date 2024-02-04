@@ -1,39 +1,41 @@
 terraform {
   required_providers {
     gitlab = {
-      source  = "gitlabhq/gitlab"
-      version = "~>16.0"
+      source                = "gitlabhq/gitlab"
+      version               = "~>16.0"
+      configuration_aliases = [gitlab.main, gitlab.mirror]
     }
     github = {
-      source  = "integrations/github"
-      version = "~> 5.0"
+      source                = "integrations/github"
+      version               = "~> 5.0"
+      configuration_aliases = [github.user, github.org]
     }
   }
 }
 
-provider "github" {
-  token = var.github_provider.provider_info.user_token
+# provider "github" {
+#   token = var.github_provider.provider_info.user_token
 
-  alias = "user"
-}
+#   alias = "user"
+# }
 
-provider "github" {
-  token = var.github_provider.provider_info.user_token
-  owner = "rdeville-public"
+# provider "github" {
+#   token = var.github_provider.provider_info.user_token
+#   owner = "rdeville-public"
 
-  alias = "org"
-}
+#   alias = "org"
+# }
 
-provider "gitlab" {
-  base_url = var.gitlab_provider["gitlab"].provider_info.base_url
-  token    = var.gitlab_provider["gitlab"].provider_info.token
+# provider "gitlab" {
+#   base_url = var.gitlab_provider[var.gitlab_instances[1]].provider_info.base_url
+#   token    = var.gitlab_provider[var.gitlab_instances[1]].provider_info.token
 
-  alias = "gitlab"
-}
+#   alias = "mirror"
+# }
 
-provider "gitlab" {
-  base_url = var.gitlab_provider["framagit"].provider_info.base_url
-  token    = var.gitlab_provider["framagit"].provider_info.token
+# provider "gitlab" {
+#   base_url = var.gitlab_provider[var.gitlab_instances[0]].provider_info.base_url
+#   token    = var.gitlab_provider[var.gitlab_instances[0]].provider_info.token
 
-  alias = "framagit"
-}
+#   alias = "main"
+# }
